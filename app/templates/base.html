@@ -1,0 +1,14 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - Atlas</title>
+      {% else %}
+      <title>Welcome to Atlas</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Atlas: <a href="/index">Home</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
