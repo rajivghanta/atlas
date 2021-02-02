@@ -2,7 +2,15 @@
 
 {% block content %}
     <h1>Hi!</h1>
-    {% for bookmark in bookmarks %}
-    <div><p>Title: <b>{{ bookmark.title }}</b><br>URL: {{ bookmark.url }}</p></div>
+    {% for job in jobs %}
+    <div>
+    	<p>
+    		Title: <b>{{ job.title }}</b>
+    		<br />
+    		URL: {{ job.url }}
+    		<br />
+    		<a href="/job/delete/{{ job.id }}">Trash</a>
+    	</p>
+    </div>
     {% endfor %}
 {% endblock %}

@@ -1,19 +1,31 @@
 from flask import render_template, request
 from app import app, db
-from app.models import Bookmark
+from app.models import Job
 import json
 
 @app.route('/')
 @app.route('/index')
 def index():
-	bookmarks = Bookmark.query.all()
-	return render_template('index.html', title='Home', bookmarks=bookmarks)
+	jobs = Job.query.all()
+	return render_template('index.html', title='Home', jobs=jobs)
 
-@app.route('/add', methods=['GET', 'POST'])
-def add():
-	data = request.get_json()
-	print(data)
-	bookmark = Bookmark(url=data['url'], title=data['title'])
-	db.session.add(bookmark)
+@app.route('/job/', methods=['POST'])
+@app.route('/job/<id>', methods=['GET'])
+def job(id=None):
+	if request.method == 'POST':
+		data = request.get_json()
+		# print(data)
+		job = Job(url=data['url'], title=data['title'])
+		db.session.add(job)
+		db.session.commit()
+		return json.dumps({'success': True}), 200, {'ContentType':'application/json'}
+	else:
+		job = Job.query.get(id)
+		return json.dumps(job), 200, {'ContentType':'application/json'}
+
+@app.route('/job/delete/<id>', methods=['GET', 'DELETE'])
+def job_delete(id):
+	job = Job.query.get(id)
+	db.session.delete(job)
 	db.session.commit()
-	return json.dumps({'success': True}), 200, {'ContentType':'application/json'} 
+	return json.dumps({'success': True}), 200, {'ContentType':'application/json'}
