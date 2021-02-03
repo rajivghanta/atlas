@@ -5,9 +5,11 @@
     {% for job in jobs %}
     <div>
     	<p>
-    		Title: <b>{{ job.title }}</b>
+    		URL: <a href="{{ job.url }}">{{ job.url }}</a>
     		<br />
-    		URL: {{ job.url }}
+    		{{ job.extracted_data.job_title }} | {{ job.extracted_data.company_name }}
+    		<br />
+    		{{ job.extracted_data.job_location }} | {{ job.extracted_data.job_url }}
     		<br />
     		<a href="/job/delete/{{ job.id }}">Trash</a>
     	</p>

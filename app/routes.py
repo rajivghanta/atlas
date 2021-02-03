@@ -2,6 +2,7 @@ from flask import render_template, request
 from app import app, db
 from app.models import Job
 import json
+from app.job_data_extractor import job_data_extractor
 
 @app.route('/')
 @app.route('/index')
@@ -15,7 +16,8 @@ def job(id=None):
 	if request.method == 'POST':
 		data = request.get_json()
 		# print(data)
-		job = Job(url=data['url'], title=data['title'])
+		job = Job(url=data['url'], dom=data['dom'])
+		job.extracted_data = job_data_extractor(data['url'], data['dom'])
 		db.session.add(job)
 		db.session.commit()
 		return json.dumps({'success': True}), 200, {'ContentType':'application/json'}
