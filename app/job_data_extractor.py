@@ -94,7 +94,7 @@ def job_data_extractor(job_url, job_dom_data):
 		company_name = soup.find('div', {'class': 'vjs-highlight'}).find('span', {'class': 'company'})
 		if company_name != None:
 			company_name = company_name.text.strip()
-		job_location = soup.find('div', {'class': 'vjs-highlight'}).find('div', {'class': 'location'})
+		job_location = soup.find('div', {'class': 'vjs-highlight'}).find('span', {'class': 'location'})
 		if job_location != None:
 			job_location = job_location.text.strip()
 		job_url = soup.find('div', {'class': 'vjs-highlight'}).find('a')
