@@ -10,11 +10,11 @@
 		  		<br />
 		  		{{ job.extracted_data.job_location }}
 		  		<br />
-		  		<a href="{{ job.url }}">Original Link</a>
+		  		<a href="{{ job.url }}" target="_blank">Original Link</a>
 		  	</p>
 		  </div>
 		  <div class="panel-footer">
-		  	<a href="{{ job.extracted_data.job_url }}" class="btn btn-info">Job Posting</a>
+		  	<a href="{{ job.extracted_data.job_url }}" class="btn btn-info" target="_blank">Job Posting</a>
 		  	<a href="/job/delete/{{ job.id }}" class="btn btn-sm btn-default glyphicon glyphicon-trash pull-right"></a>
 		  </div>
 		</div>
