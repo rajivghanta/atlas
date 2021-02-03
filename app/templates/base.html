@@ -10,7 +10,11 @@
 
 {% block navbar %}
     <nav class="navbar navbar-default">
-        <div>Atlas: <a href="{{ url_for('index') }}">Home</a></div>
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('index') }}">Atlas</a>
+        </div>
+      </div>
     </nav>
 {% endblock %}
 
