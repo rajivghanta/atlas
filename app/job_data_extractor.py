@@ -99,7 +99,7 @@ def job_data_extractor(job_url, job_dom_data):
 			job_location = job_location.text.strip()
 		job_url = soup.find('div', {'class': 'vjs-highlight'}).find('a')
 		if job_url != None:
-			job_url = job_url['href']
+			job_url = 'https://www.indeed.com' + job_url['href']
 		extracted_data = {'job_title': job_title,
 					  'company_name': company_name,
 					  'job_location': job_location,
