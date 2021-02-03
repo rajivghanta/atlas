@@ -1,14 +1,30 @@
-<html>
-    <head>
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
       {% if title %}
-      <title>{{ title }} - Atlas</title>
+        {{ title }} - Atlas
       {% else %}
-      <title>Welcome to Atlas</title>
+        Welcome to Atlas
       {% endif %}
-    </head>
-    <body>
-        <div>Atlas: <a href="/index">Home</a></div>
-        <hr>
-        {% block content %}{% endblock %}
-    </body>
-</html>
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div>Atlas: <a href="{{ url_for('index') }}">Home</a></div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}

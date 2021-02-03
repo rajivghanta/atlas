@@ -1,18 +1,8 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <h1>Hi!</h1>
+{% block app_content %}
+    <h1>My Jobs Dashboard</h1>
     {% for job in jobs %}
-    <div>
-    	<p>
-    		URL: <a href="{{ job.url }}">{{ job.url }}</a>
-    		<br />
-    		{{ job.extracted_data.job_title }} | {{ job.extracted_data.company_name }}
-    		<br />
-    		{{ job.extracted_data.job_location }} | {{ job.extracted_data.job_url }}
-    		<br />
-    		<a href="/job/delete/{{ job.id }}">Trash</a>
-    	</p>
-    </div>
+    	{% include '_job.html' %}
     {% endfor %}
 {% endblock %}
