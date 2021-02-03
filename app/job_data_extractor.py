@@ -25,6 +25,11 @@ def job_data_extractor(job_url, job_dom_data):
 							  'company_name': company_name,
 							  'job_location': job_location,
 							  'job_url': job_url}
+		print(job_title)
+		print(company_name)
+		print(job_location)
+		print(job_url)
+		return extracted_data
 
 	### LINKEDIN DETAIL JOB VIEW
 	if 'https://www.linkedin.com/jobs/view/' in job_url:
@@ -44,6 +49,11 @@ def job_data_extractor(job_url, job_dom_data):
 							  'company_name': company_name,
 							  'job_location': job_location,
 							  'job_url': job_url}
+		print(job_title)
+		print(company_name)
+		print(job_location)
+		print(job_url)
+		return extracted_data
 
 	### GLASSDOOR JOB SEARCH VIEW
 	if 'https://www.glassdoor.com/Job/jobs.htm' in job_url:
@@ -69,6 +79,11 @@ def job_data_extractor(job_url, job_dom_data):
 					  'company_name': company_name,
 					  'job_location': job_location,
 					  'job_url': job_url}
+		print(job_title)
+		print(company_name)
+		print(job_location)
+		print(job_url)
+		return extracted_data
 
 	### INDEED JOB SEARCH VIEW
 	if 'https://www.indeed.com/jobs' in job_url:
@@ -89,6 +104,11 @@ def job_data_extractor(job_url, job_dom_data):
 					  'company_name': company_name,
 					  'job_location': job_location,
 					  'job_url': job_url}
+		print(job_title)
+		print(company_name)
+		print(job_location)
+		print(job_url)
+		return extracted_data
 
 	### INDEED DETAIL JOB VIEW
 	if 'https://www.indeed.com/viewjob' in job_url:
@@ -108,10 +128,10 @@ def job_data_extractor(job_url, job_dom_data):
 							  'company_name': company_name,
 							  'job_location': job_location,
 							  'job_url': job_url}
-
-	print(job_title)
-	print(company_name)
-	print(job_location)
-	print(job_url)
+		print(job_title)
+		print(company_name)
+		print(job_location)
+		print(job_url)
+		return extracted_data
 
 	return extracted_data
