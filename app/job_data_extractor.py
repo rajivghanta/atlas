@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 def job_data_extractor(job_url, job_dom_data):
-	extracted_data = {}
+	extracted_job_data = {}
 
 	### LINKEDIN JOB SEARCH VIEW
 	if 'https://www.linkedin.com/jobs/search/' in job_url:
@@ -21,7 +21,7 @@ def job_data_extractor(job_url, job_dom_data):
 			job_url = 'https://www.linkedin.com' + job_url
 			job_url = job_url.split('?')[0]
 
-		extracted_data = {'job_title': job_title,
+		extracted_job_data = {'job_title': job_title,
 							  'company_name': company_name,
 							  'job_location': job_location,
 							  'job_url': job_url}
@@ -29,7 +29,7 @@ def job_data_extractor(job_url, job_dom_data):
 		print(company_name)
 		print(job_location)
 		print(job_url)
-		return extracted_data
+		return extracted_job_data
 
 	### LINKEDIN DETAIL JOB VIEW
 	if 'https://www.linkedin.com/jobs/view/' in job_url:
@@ -45,7 +45,7 @@ def job_data_extractor(job_url, job_dom_data):
 			job_location = job_location.text.strip()
 		job_url = job_url.split('?')[0]
 
-		extracted_data = {'job_title': job_title,
+		extracted_job_data = {'job_title': job_title,
 							  'company_name': company_name,
 							  'job_location': job_location,
 							  'job_url': job_url}
@@ -53,7 +53,7 @@ def job_data_extractor(job_url, job_dom_data):
 		print(company_name)
 		print(job_location)
 		print(job_url)
-		return extracted_data
+		return extracted_job_data
 
 	### GLASSDOOR JOB SEARCH VIEW
 	if 'https://www.glassdoor.com/Job/jobs.htm' in job_url:
@@ -75,7 +75,7 @@ def job_data_extractor(job_url, job_dom_data):
 			job_url = job_url['href']
 			job_url = 'https://www.glassdoor.com' + job_url
 
-		extracted_data = {'job_title': job_title,
+		extracted_job_data = {'job_title': job_title,
 					  'company_name': company_name,
 					  'job_location': job_location,
 					  'job_url': job_url}
@@ -83,7 +83,7 @@ def job_data_extractor(job_url, job_dom_data):
 		print(company_name)
 		print(job_location)
 		print(job_url)
-		return extracted_data
+		return extracted_job_data
 
 	### INDEED JOB SEARCH VIEW
 	if 'https://www.indeed.com/jobs' in job_url:
@@ -100,7 +100,7 @@ def job_data_extractor(job_url, job_dom_data):
 		job_url = soup.find('div', {'class': 'vjs-highlight'}).find('a')
 		if job_url != None:
 			job_url = 'https://www.indeed.com' + job_url['href']
-		extracted_data = {'job_title': job_title,
+		extracted_job_data = {'job_title': job_title,
 					  'company_name': company_name,
 					  'job_location': job_location,
 					  'job_url': job_url}
@@ -108,7 +108,7 @@ def job_data_extractor(job_url, job_dom_data):
 		print(company_name)
 		print(job_location)
 		print(job_url)
-		return extracted_data
+		return extracted_job_data
 
 	### INDEED DETAIL JOB VIEW
 	if 'https://www.indeed.com/viewjob' in job_url:
@@ -124,7 +124,7 @@ def job_data_extractor(job_url, job_dom_data):
 			job_location = job_location.text.strip()
 		job_url = job_url.split('&')[0]
 
-		extracted_data = {'job_title': job_title,
+		extracted_job_data = {'job_title': job_title,
 							  'company_name': company_name,
 							  'job_location': job_location,
 							  'job_url': job_url}
@@ -132,6 +132,6 @@ def job_data_extractor(job_url, job_dom_data):
 		print(company_name)
 		print(job_location)
 		print(job_url)
-		return extracted_data
+		return extracted_job_data
 
-	return extracted_data
+	return extracted_job_data
