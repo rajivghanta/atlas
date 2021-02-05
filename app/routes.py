@@ -49,8 +49,7 @@ def register():
 def settings():
 	form = SettingsForm()
 	if form.validate_on_submit():
-		user = User.query.filter_by(email=current_user.email).first()
-		user.secret = form.secret.data
+		current_user.secret = form.secret.data
 		db.session.commit()
 		flash('Secret successfully stored.')
 		return redirect(url_for('index'))
