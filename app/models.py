@@ -9,6 +9,7 @@ class User(UserMixin, db.Model):
 	email = db.Column(db.String(120), index=True, unique=True)
 	password_hash = db.Column(db.String(128))
 	jobs = db.relationship('Job', backref='author', lazy='dynamic')
+	secret = db.Column(db.String())
 
 	def __repr__(self):
 		return '<User {}>'.format(self.email)

@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, request, url_for
 from app import app, db
 from app.models import User, Job
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, SettingsForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 import json
@@ -44,6 +44,18 @@ def register():
 		return redirect(url_for('login'))
 	return render_template('register.html', title='Register', form=form)
 
+@app.route('/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+	form = SettingsForm()
+	if form.validate_on_submit():
+		user = User.query.filter_by(email=current_user.email).first()
+		user.secret = form.secret.data
+		db.session.commit()
+		flash('Secret successfully stored.')
+		return redirect(url_for('index'))
+	return render_template('settings.html', title='Settings', form=form)
+
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -57,11 +69,24 @@ def job(id=None):
 	if request.method == 'POST':
 		data = request.get_json()
 		# print(data)
+
+		if 'secret' not in data or 'url' not in data or 'dom' not in data:
+			print('POST to /job/ expects \'url\', \'dom\' and \'secret\'; at least one missing')
+			return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
+		
+		# print(data['secret'])
+		secret_user = User.query.filter_by(secret=data['secret']).first()
+		if secret_user == None:
+			print('Could not find any user associated with secret phrase:', data['secret'])
+			return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
+
 		job = Job(url=data['url'], dom=data['dom'])
-		job.extracted_data = job_data_extractor(data['url'], data['dom'])
+		job.extracted_job_data = job_data_extractor(data['url'], data['dom'])
+		job.user_id = secret_user.id
 		db.session.add(job)
 		db.session.commit()
 		return json.dumps({'success': True}), 200, {'ContentType':'application/json'}
+
 	else:
 		job = Job.query.get(id)
 		return json.dumps(job), 200, {'ContentType':'application/json'}
